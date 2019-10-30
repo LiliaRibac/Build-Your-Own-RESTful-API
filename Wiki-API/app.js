@@ -14,18 +14,28 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(express.static("public"));
 
-//TODO
 
-mongoose.connect("mongodb://localhost:27017/WikiDB", {
+mongoose.connect("mongodb://localhost:27017/wikiDB", {
   useNewUrlParser: true
 })
 
- const ariclesSchema={
-   title:String,
-   content:String
- };
+const ariclesSchema = {
+  title: String,
+  content: String
+};
 
- const Article = mongoose.model("Article", ariclesSchema);
+const Article = mongoose.model("Article", ariclesSchema);
+
+app.get("/articles", function (req, res) {
+  Article.find(function (err, foundArticles) {
+    if (!err) {
+      res.send(foundArticles)
+    } else {
+      res.send(err)
+    }
+
+  });
+});
 
 app.listen(3000, function () {
   console.log("Server started on port 3000");
