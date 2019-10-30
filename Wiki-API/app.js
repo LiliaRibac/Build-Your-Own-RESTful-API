@@ -86,7 +86,7 @@ app.route("/articles/:articleTitle")
 
 
 .put(function(req,res){
-  Article.updateOne(
+  Article.update(
     {title:req.params.articleTitle},
     {title:req.body.title, content:req.body.content},
     {overwrite:true},
@@ -95,8 +95,24 @@ app.route("/articles/:articleTitle")
         res.send("Successully updated article.")
       }
     }
-  )
+  );
 })
+
+
+.patch(function(req,res){
+  Article.update(
+    {title:req.params.articleTitle},
+    {$set:req.body},
+    
+    function(err){
+      if(!err){
+        res.send("Successully updated article.")
+      }else{
+        res.send(err)
+      }
+    }
+  );
+});
 
 
 app.listen(3000, function () {
