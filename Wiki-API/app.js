@@ -16,17 +16,17 @@ app.use(express.static("public"));
 
 //TODO
 
-mongoose.connect("mongodb://localhost:27017/Wiki-API", {
-  useUnifiedTopology: true
+mongoose.connect("mongodb://localhost:27017/WikiDB", {
+  useNewUrlParser: true
 })
 
- const wikiSchema={
+ const ariclesSchema={
    title:String,
    content:String
  };
 
- const Item = mongoose.model("Item", wikiSchema);
- 
+ const Article = mongoose.model("Article", ariclesSchema);
+
 app.listen(3000, function () {
   console.log("Server started on port 3000");
 });
